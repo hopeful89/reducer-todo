@@ -15,9 +15,9 @@ function App() {
   }
   console.log('current state', state)
 
-  // useEffect(() => {
-  //   console.log(state)
-  // },[state])
+  useEffect(() => {
+    console.log('usestate hook', state)
+  })
   return (
     <>
       <div className="App">

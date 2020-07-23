@@ -22,7 +22,7 @@ export const reducer = (state, action) => {
         case "IS_COMPLETE":
             // console.log('is complete')
                 state.map(stateobj => {
-                   return (stateobj.id === action.id ? stateobj.completed = action.completed : state)
+                   return (stateobj.id === action.id ? stateobj.completed = action.completed : undefined)
                 })
         default: 
             return state
