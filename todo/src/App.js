@@ -1,25 +1,36 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { useReducer, useEffect } from "react";
+import ToDoForm from "./components/ToDoForm";
+import ToDoCard from "./components/ToDoCard";
+import { Container, Grid } from "@material-ui/core";
+import { reducer, initState } from "./reducers/index";
+import "./App.css";
 
 function App() {
+  const [state, dispatch] = useReducer(reducer, initState);
+
+  const clearComplete = (e) => {
+    e.preventDefault();
+    e.stopPropagation();
+    dispatch({type: 'CLEAR_COMPLETED'})
+  }
+  console.log('current state', state)
+
+  // useEffect(() => {
+  //   console.log(state)
+  // },[state])
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <>
+      <div className="App">
+        <ToDoForm state={state} dispatch={dispatch} />
+        <button onClick={() => {dispatch({type: 'CLEAR_COMPLETED'})}}>Clear Completed</button>
+      </div>
+      <Grid container justify="center" spacing={2} style={{ padding: "2%" }}>
+        
+        {state?.map((obj) => {
+          return <ToDoCard key={obj.id} toDo={obj} dispatch={dispatch} />;
+        })}
+      </Grid>
+    </>
   );
 }
 
