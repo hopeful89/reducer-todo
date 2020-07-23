@@ -15,15 +15,15 @@ export const reducer = (state, action) => {
     switch(action.type){
         case "ADD_TODO":
             // console.log('bs: reducer index.js: action', action)
-            return [...state, {...initState, completed: false, item: action.payload, appointment: action.appointment, id: Date.now()}]
+            return [...state, {completed: false, item: action.payload, appointment: action.appointment, id: Date.now()}]
         case "CLEAR_COMPLETED":
                 // console.log('what is going on')
                 return state.filter(obj => !obj.completed)
         case "IS_COMPLETE":
             // console.log('is complete')
-                state.map(stateobj => {
-                   return (stateobj.id === action.id ? stateobj.completed = action.completed : undefined)
-                })
+            return state.map(stateobj => 
+                stateobj.id === action.id ? {...stateobj, completed: !stateobj.completed} : stateobj
+             )
         default: 
             return state
     }
